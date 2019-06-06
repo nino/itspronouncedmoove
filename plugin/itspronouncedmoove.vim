@@ -8,6 +8,13 @@ endfunction
 command! Cut :call CutWindow()
 nnoremap ,x :Cut<CR>
 
+function! CopyWindow()
+  let g:window_id_to_move = win_getid()
+  let g:buffer_id_to_move = bufnr('%')
+endfunction
+command! Copy :call CopyWindow()
+nnoremap ,c :Copy<CR>
+
 function! AttachWindowRight()
   if exists('g:window_id_to_move') && exists('g:buffer_id_to_move')
     vsplit
@@ -40,7 +47,6 @@ nnoremap ,j :AttachWindowBottom<CR>
 function! AttachWindowTop()
   if exists('g:window_id_to_move') && exists('g:buffer_id_to_move')
     split
-    wincmd j
     exe 'buf' g:buffer_id_to_move
   endif
 endfunction
